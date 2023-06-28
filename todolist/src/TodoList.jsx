@@ -4,7 +4,6 @@ const TodoList = () => {
   const [tasks, setTasks] = useState([]);
   const [inputValue, setInputValue] = useState('');
 
-  // Load tasks from LocalStorage
   useEffect(() => {
     const savedTasks = localStorage.getItem('tasks');
     if (savedTasks) {
@@ -12,7 +11,6 @@ const TodoList = () => {
     }
   }, []);
 
-  // Save tasks to LocalStorage
   useEffect(() => {
     localStorage.setItem('tasks', JSON.stringify(tasks));
   }, [tasks]);
@@ -55,7 +53,7 @@ const TodoList = () => {
 
   return (
     <div className="container">
-      <h1>Todo List</h1>
+      <h1 class="text-center p-5">TODO LIST</h1>
 
       <div className="input-group mb-3">
         <input
@@ -74,7 +72,7 @@ const TodoList = () => {
         {tasks.map((task) => (
           <li
             key={task.id}
-            className={`list-group-item ${
+            className={`list-group-item d-flex justify-content-between ${
               task.completed ? 'list-group-item-success' : ''
             }`}
           >
@@ -85,16 +83,14 @@ const TodoList = () => {
               {task.title}
             </span>
             <button
-              className="btn btn-sm btn-danger float-end"
+              className="btn btn-sm btn-danger"
               onClick={() => handleDeleteTask(task.id)}
-            >
-              Delete
-            </button>
+            >Delete</button>
           </li>
         ))}
       </ul>
 
-      <p>{tasks.filter((task) => !task.completed).length} tasks remaining</p>
+      <p>{tasks.filter((task) => !task.completed).length} tasks</p>
     </div>
   );
 };
