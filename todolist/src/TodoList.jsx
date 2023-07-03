@@ -18,6 +18,12 @@ const TodoList = () => {
   const handleInput = (e) => {
     setInputValue(e.target.value);
   };
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      handleAddTask();
+    }
+  };
+  
 // Xu li them Task
   const handleAddTask = () => {
     if (inputValue.trim() !== '') {
@@ -63,6 +69,7 @@ const TodoList = () => {
           placeholder="Nhập công việc..."
           value={inputValue}
           onChange={handleInput}
+          onKeyPress={handleKeyPress}
         />
         <button className="btn btn-primary" onClick={handleAddTask}>
           Add Task
