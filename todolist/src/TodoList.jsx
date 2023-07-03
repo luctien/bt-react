@@ -5,9 +5,9 @@ const TodoList = () => {
   const [inputValue, setInputValue] = useState('');
 
   useEffect(() => {
-    const savedTasks = localStorage.getItem('tasks');
-    if (savedTasks) {
-      setTasks(JSON.parse(savedTasks));
+    const save = localStorage.getItem('tasks');
+    if (save) {
+      setTasks(JSON.parse(save));
     }
   }, []);
 
@@ -15,10 +15,10 @@ const TodoList = () => {
     localStorage.setItem('tasks', JSON.stringify(tasks));
   }, [tasks]);
 
-  const handleInputChange = (event) => {
-    setInputValue(event.target.value);
+  const handleInput = (e) => {
+    setInputValue(e.target.value);
   };
-
+// Xu li them Task
   const handleAddTask = () => {
     if (inputValue.trim() !== '') {
       const newTask = {
@@ -30,15 +30,17 @@ const TodoList = () => {
       setTasks([...tasks, newTask]);
       setInputValue('');
     }
-  };
+  }
 
+// Xu li xoa Task
   const handleDeleteTask = (taskId) => {
-    const updatedTasks = tasks.filter((task) => task.id !== taskId);
-    setTasks(updatedTasks);
+    const updateTasks = tasks.filter((task) => task.id !== taskId);
+    setTasks(updateTasks);
   };
 
+// Đánh dấu công việc đã hoàn thành
   const handleToggleTask = (taskId) => {
-    const updatedTasks = tasks.map((task) => {
+    const updateTasks = tasks.map((task) => {
       if (task.id === taskId) {
         return {
           ...task,
@@ -47,21 +49,20 @@ const TodoList = () => {
       }
       return task;
     });
-
-    setTasks(updatedTasks);
-  };
+    setTasks(updateTasks);
+  }
 
   return (
     <div className="container">
-      <h1 class="text-center p-5">TODO LIST</h1>
+      <h1 className="text-center p-5">TODO LIST</h1>
 
       <div className="input-group mb-3">
         <input
-          type="text"
+          type=""
           className="form-control"
-          placeholder="Enter a task..."
+          placeholder="Nhập công việc..."
           value={inputValue}
-          onChange={handleInputChange}
+          onChange={handleInput}
         />
         <button className="btn btn-primary" onClick={handleAddTask}>
           Add Task
@@ -90,7 +91,7 @@ const TodoList = () => {
         ))}
       </ul>
 
-      <p>{tasks.filter((task) => !task.completed).length} tasks</p>
+      <p>{tasks.filter((task) => !task.completed).length} việc cần làm</p>
     </div>
   );
 };
